@@ -1,7 +1,11 @@
+import { HttpUtilService } from './../../../shared/services/http-util.service';
+import { Lancamento } from './../../../shared/models/lancamento.model';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Tipo } from './../../../shared';
+import {
+  Tipo,
+  LancamentoService } from './../../../shared';
 
 import * as moment from 'moment';
 
@@ -19,8 +23,10 @@ export class LancamentoComponent implements OnInit {
   ultimoTipoLancado: string;
 
   constructor(
-    private snackBar:MatSnackBar,
-    private router:Router) { }
+    private snackBar: MatSnackBar,
+    private router: Router,
+    private lancamentoService: LancamentoService,
+    private httpUtil: HttpUtilService) { }
 
   ngOnInit(): void {
     this.dataAtual = moment().format('DD/MM/YYYY HH:mm:ss');
@@ -52,11 +58,42 @@ export class LancamentoComponent implements OnInit {
   }
 
   obterUltimoLancamento() {
-    this.ultimoTipoLancado= '';
+    this.lancamentoService.buscarUltimoTipoLancado()
+    .subscribe(
+      data => {
+        this.ultimoTipoLancado = data.data ? data.data.tipo : '';
+      },
+      err => {
+        const msg: string = 'ERRO ao obter o ultimo lançamento';
+        this.snackBar.open(msg, 'ERROR', {duration: 5000});
+      });
+
   }
   cadastrar(tipo: Tipo){
-    alert(`tipo: ${tipo}, dataAtualEn: ${this.dataAtualEn},
-    geoLocation: ${this.geoLocation}`);
+   const lancamento: Lancamento = new Lancamento(
+     this.dataAtualEn,
+     tipo,
+     this.geoLocation,
+     this.httpUtil.obterIdUsuario()
+   );
+   this.lancamentoService.cadastrar(lancamento)
+   .subscribe(
+     data => {
+      const msg: string = 'Lançamento cadastrado com sucesso';
+      this.snackBar.open(msg, 'SUCESS', {duration: 5000});
+      this.router.navigate(['/funcionario/listagem']);
+   },
+   err => {
+     let msg: string = 'Erro ao fazer o lançamento, Tente novamente';
+     if (err.status === 400){
+       msg = 'Lançamento feito errado, faça corretamente';
+     }
+     this.snackBar.open(msg, 'ERROR', {duration: 5000});
+   });
+
+    //alert(`tipo: ${tipo}, dataAtualEn: ${this.dataAtualEn},
+   // geoLocation: ${this.geoLocation}`);
+
   }
   obterUrlMapa(): string {
   	return "https://www.google.com/maps/search/?api=1&query=" +

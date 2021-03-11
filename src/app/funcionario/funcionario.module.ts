@@ -13,11 +13,15 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-
+import { MatToolbarModule } from '@angular/material/toolbar';
 import {
   ListagemComponent,
   LancamentoComponent,
   FuncionarioComponent } from './components';
+import {
+  HttpUtilService,
+  LancamentoService
+} from './../shared';
 
 @NgModule({
   declarations: [
@@ -34,12 +38,17 @@ import {
     MatInputModule,
     MatListModule,
     MatTooltipModule,
+    MatToolbarModule,
     MatIconModule,
     MatSnackBarModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
     MatCardModule
+  ],
+  providers: [
+    HttpUtilService,
+    LancamentoService
   ]
 })
 export class FuncionarioModule { }
