@@ -9,7 +9,7 @@ import { Lancamento } from './../models';
   providedIn: 'root'
 })
 export class LancamentoService {
-private readonly PATH: string = 'lancamento';
+private readonly PATH: string = 'lancamentos';
 private readonly PATH_ULT_LANC = '/funcionario/{funcionarioId}/ultimo';
 private readonly PATH_LANCAMENTOS = '/funcionario/{funcionarioId}';
 private readonly PATH_TODOS_LANC = '/funcionario/{funcionarioId}/todos';
@@ -21,15 +21,25 @@ private readonly PATH_TODOS_LANC = '/funcionario/{funcionarioId}/todos';
 
   buscarUltimoTipoLancado(): Observable<any> {
     return this.http.get(
-      env.baseApiUrl + this.PATH + this.PATH_ULT_LANC.replace(
-      '{funcionarioId}', this.httpUtil.obterIdUsuario()
-      ),
+      env.baseApiUrl + this.PATH +
+      this.PATH_ULT_LANC.replace(
+       '{funcionarioId}', this.httpUtil.obterIdUsuario()),
       this.httpUtil.headers()
     );
   }
   cadastrar(lancamento: Lancamento): Observable<any> {
     return this.http.post(
-      env.baseApiUrl + this.PATH, lancamento,this.httpUtil.headers()
+      env.baseApiUrl + this.PATH,
+      lancamento,
+      this.httpUtil.headers()
+    );
+  }
+  listarTodosLancamentos(): Observable<any> {
+    return this.http.get(
+      env.baseApiUrl + this.PATH +
+      this.PATH_TODOS_LANC.replace(
+      '{funcionarioId}', this.httpUtil.obterIdUsuario()),
+      this.httpUtil.headers()
     );
   }
 }

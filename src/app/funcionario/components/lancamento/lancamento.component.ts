@@ -32,7 +32,7 @@ export class LancamentoComponent implements OnInit {
     this.dataAtual = moment().format('DD/MM/YYYY HH:mm:ss');
     this.dataAtualEn = moment().format('YYY-MM-DD HH:mm:ss');
     this.obterGeoLocation();
-    this.ultimoTipoLancado='';
+    this.ultimoTipoLancado ='';
     this.obterUltimoLancamento();
   }
 
@@ -59,41 +59,41 @@ export class LancamentoComponent implements OnInit {
 
   obterUltimoLancamento() {
     this.lancamentoService.buscarUltimoTipoLancado()
-    .subscribe(
-      data => {
-        this.ultimoTipoLancado = data.data ? data.data.tipo : '';
-      },
-      err => {
-        const msg: string = 'ERRO ao obter o ultimo lançamento';
-        this.snackBar.open(msg, 'ERROR', {duration: 5000});
-      });
+      .subscribe(
+        data => {
+          this.ultimoTipoLancado = data.data ? data.data.tipo : '';
+        },
+        err => {
+          const msg: string = "Erro obtendo último lançamento.";
+          this.snackBar.open(msg, "Erro", { duration: 5000 });
+        }
+      );
 
   }
+
   cadastrar(tipo: Tipo){
-   const lancamento: Lancamento = new Lancamento(
-     this.dataAtualEn,
-     tipo,
-     this.geoLocation,
-     this.httpUtil.obterIdUsuario()
-   );
-   this.lancamentoService.cadastrar(lancamento)
-   .subscribe(
-     data => {
-      const msg: string = 'Lançamento cadastrado com sucesso';
-      this.snackBar.open(msg, 'SUCESS', {duration: 5000});
-      this.router.navigate(['/funcionario/listagem']);
-   },
-   err => {
-     let msg: string = 'Erro ao fazer o lançamento, Tente novamente';
-     if (err.status === 400){
-       msg = 'Lançamento feito errado, faça corretamente';
-     }
-     this.snackBar.open(msg, 'ERROR', {duration: 5000});
-   });
+    const lancamento: Lancamento = new Lancamento(
+      this.dataAtualEn,
+      tipo,
+      this.geoLocation,
+      this.httpUtil.obterIdUsuario()
+    );
 
-    //alert(`tipo: ${tipo}, dataAtualEn: ${this.dataAtualEn},
-   // geoLocation: ${this.geoLocation}`);
-
+    this.lancamentoService.cadastrar(lancamento)
+      .subscribe(
+        data => {
+          const msg: string = "Lançamento realizado com sucesso!";
+          this.snackBar.open(msg, "Sucesso", { duration: 5000 });
+          this.router.navigate(['/funcionario/listagem']);
+        },
+        err => {
+          let msg: string = "Tente novamente em instantes.";
+          if (err.status == 400) {
+            msg = err.error.errors.join(' ');
+          }
+          this.snackBar.open(msg, "Erro", { duration: 5000 });
+        }
+      );
   }
   obterUrlMapa(): string {
   	return "https://www.google.com/maps/search/?api=1&query=" +
