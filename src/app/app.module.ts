@@ -9,7 +9,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
-
+import {MatTableModule} from '@angular/material/table';
 import {
   LoginModule,
   LoginRoutingModule,
@@ -34,6 +34,7 @@ import {
     MatTooltipModule,
     MatIconModule,
     MatToolbarModule,
+    MatTableModule,
     FlexLayoutModule,
     LoginModule,
     LoginRoutingModule,
