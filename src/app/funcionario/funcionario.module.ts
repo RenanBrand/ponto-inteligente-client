@@ -1,3 +1,4 @@
+import { MatPaginatorIntl } from '@angular/material/paginator';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -20,7 +21,8 @@ import {
   FuncionarioComponent } from './components';
 import {
   HttpUtilService,
-  LancamentoService
+  LancamentoService,
+  PtBrMatPaginatorIntl
 } from './../shared';
 
 @NgModule({
@@ -48,7 +50,11 @@ import {
   ],
   providers: [
     HttpUtilService,
-    LancamentoService
+    LancamentoService,
+    {
+      provide:MatPaginatorIntl,
+        useClass:PtBrMatPaginatorIntl
+    }
   ]
 })
 export class FuncionarioModule { }
