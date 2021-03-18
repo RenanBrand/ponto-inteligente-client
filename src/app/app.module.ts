@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatTableModule} from '@angular/material/table';
+
 import {
   LoginModule,
   LoginRoutingModule,
@@ -22,9 +22,14 @@ import {
 import {
   FuncionarioModule,
   FuncionarioRoutingModule } from './funcionario';
+import {
+  AdminModule,
+  AdminRoutingModule
+} from './admin';
+
 
 @NgModule({
-  declarations: [
+    declarations: [
     AppComponent
   ],
   imports: [
@@ -44,6 +49,8 @@ import {
     CadastroPfRoutingModule,
     FuncionarioModule,
     FuncionarioRoutingModule,
+    AdminModule,
+    AdminRoutingModule,
 
 
 

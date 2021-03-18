@@ -42,4 +42,16 @@ private readonly PATH_TODOS_LANC = '/funcionario/{funcionarioId}/todos';
       this.httpUtil.headers()
     );
   }
+  listarTodosLancamentosPorFuncionarios(
+    funcionarioId: string,
+    pagina: number,
+    ordem: string,
+    direcao: string ): Observable<any> {
+     const url: string = env.baseApiUrl +
+     this.PATH + this.PATH_LANCAMENTOS
+     .replace('{funcionarioId}', funcionarioId);
+     const params: string = '?pag=' + pagina +
+     '&ord=' + ordem + '&dir=' + direcao;
+     return this.http.get(url + params, this.httpUtil.headers());
+    }
 }
