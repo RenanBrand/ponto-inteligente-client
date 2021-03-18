@@ -16,7 +16,7 @@
         Data
       </mat-header-cell>
       <mat-cell *matCellDef="let lancamento">
-        {{ lancamento.data }}
+        {{ lancamento.data | data }}
       </mat-cell>
     </ng-container>
 
@@ -25,7 +25,7 @@
         Tipo
       </mat-header-cell>
       <mat-cell *matCellDef="let lancamento">
-      	{{ lancamento.tipo }}
+      	{{ lancamento.tipo | tipo }}
       </mat-cell>
     </ng-container>
 

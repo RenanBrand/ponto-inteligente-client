@@ -20,6 +20,7 @@ import {
   LancamentoComponent,
   FuncionarioComponent } from './components';
 import {
+  SharedModule,
   HttpUtilService,
   LancamentoService,
   PtBrMatPaginatorIntl
@@ -46,14 +47,15 @@ import {
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatCardModule
+    MatCardModule,
+    SharedModule
   ],
   providers: [
     HttpUtilService,
     LancamentoService,
     {
-      provide:MatPaginatorIntl,
-        useClass:PtBrMatPaginatorIntl
+      provide: MatPaginatorIntl,
+        useClass: PtBrMatPaginatorIntl
     }
   ]
 })
