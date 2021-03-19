@@ -21,22 +21,36 @@ import { MatPaginatorIntl } from '@angular/material/paginator';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { SharedModule } from './../shared/';
+import {
+  PtBrMatPaginatorIntl,
+  SharedModule,
+  LancamentoService,
+  FuncionarioService,
+  HttpUtilService, } from './../shared';
 
 import {
   ListagemComponent,
   AtualizacaoComponent,
   CadastroComponent,
-  AdminComponent
-} from './components';
+  AdminComponent,
+  ConfirmarDialog } from './components';
 
+import {
+  MatNativeDateModule,
+  MAT_DATE_LOCALE } from '@angular/material/core';
+
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
     ListagemComponent,
     CadastroComponent,
     AtualizacaoComponent,
-    AdminComponent
+    AdminComponent,
+    ConfirmarDialog
   ],
   imports: [
     CommonModule,
@@ -56,7 +70,19 @@ import {
     MatCardModule,
     MatButtonModule,
     MatToolbarModule,
-    MatPaginatorIntl
-  ]
+    MatSelectModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatDialogModule,
+  ],
+  providers: [
+    LancamentoService,
+    HttpUtilService,
+    FuncionarioService,
+    MatPaginatorIntl,
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
+    { provide: MatPaginatorIntl, useClass: PtBrMatPaginatorIntl },],
+    entryComponents: [ ConfirmarDialog ]
 })
 export class AdminModule { }

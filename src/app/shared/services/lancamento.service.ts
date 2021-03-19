@@ -42,16 +42,22 @@ private readonly PATH_TODOS_LANC = '/funcionario/{funcionarioId}/todos';
       this.httpUtil.headers()
     );
   }
-  listarTodosLancamentosPorFuncionarios(
+  listarLancamentosPorFuncionario(
     funcionarioId: string,
     pagina: number,
     ordem: string,
-    direcao: string ): Observable<any> {
-     const url: string = env.baseApiUrl +
-     this.PATH + this.PATH_LANCAMENTOS
-     .replace('{funcionarioId}', funcionarioId);
-     const params: string = '?pag=' + pagina +
-     '&ord=' + ordem + '&dir=' + direcao;
-     return this.http.get(url + params, this.httpUtil.headers());
-    }
+    direcao: string): Observable<any> {
+
+  const url: string = env.baseApiUrl + this.PATH +
+    this.PATH_LANCAMENTOS.replace('{funcionarioId}', funcionarioId);
+
+  const params: string = '?pag=' + pagina +
+    '&ord=' + ordem + '&dir=' + direcao;
+
+  return this.http.get(url + params, this.httpUtil.headers());
+}
+removerLancamento(lancamentoId: string): Observable<any> {
+  return this.http.delete(env.baseApiUrl + this.PATH +
+    '/' + lancamentoId, this.httpUtil.headers());
+}
 }
