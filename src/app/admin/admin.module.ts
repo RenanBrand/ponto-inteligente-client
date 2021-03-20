@@ -36,13 +36,14 @@ import {
   ConfirmarDialog } from './components';
 
 import {
-  MatNativeDateModule,
-  MAT_DATE_LOCALE } from '@angular/material/core';
+MatNativeDateModule,
+MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AdminGuard } from './services';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     FuncionarioService,
     MatPaginatorIntl,
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
-    { provide: MatPaginatorIntl, useClass: PtBrMatPaginatorIntl },],
+    { provide: MatPaginatorIntl, useClass: PtBrMatPaginatorIntl },
+    AdminGuard
+  ],
     entryComponents: [ ConfirmarDialog ]
 })
 export class AdminModule { }

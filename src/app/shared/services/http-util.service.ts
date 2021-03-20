@@ -38,5 +38,12 @@ export class HttpUtilService {
     const dadosUsuario = this.obterDadosUsuario();
     return dadosUsuario ? dadosUsuario.empresaId : '';
   }
+  obterPerfil(): string {
+    if(!localStorage['token']){
+      return '';
+    }
+    const dadosUsuario = this.obterDadosUsuario();
+    return dadosUsuario ? dadosUsuario.role : '';
+  }
 
 }
